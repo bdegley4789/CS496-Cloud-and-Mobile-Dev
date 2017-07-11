@@ -1,1 +1,1 @@
-Video URL postman test suite run: https://youtu.be/GYvW7Po_7Sg
+CS 496 Assignments
