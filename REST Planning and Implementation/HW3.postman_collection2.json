@@ -1,0 +1,333 @@
+{
+	"variables": [],
+	"info": {
+		"name": "HW3",
+		"_postman_id": "85cc9425-33a8-379c-ece6-a6c93e511144",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Boat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"var last = jsonData[0];",
+							"postman.setGlobalVariable(\"publicBoat\", jsonData[\"id\"]);",
+							"tests[\"TEST 0: Confirm boat id recieved\"] = globals.publicBoat == jsonData[\"id\"];",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Goldy\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "TEST 1: New Boat at sea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"tests[\"TEST 1: Confirm new boat is at sea\"] = jsonData[\"at_sea\"] === true;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat/{{publicBoat}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"var last = jsonData[0];",
+							"postman.setGlobalVariable(\"publicSlip\", jsonData[\"id\"]);",
+							"tests[\"TEST 2: Confirm slip id recieved\"] = globals.publicSlip == jsonData[\"id\"];"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/slip",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"number\":1}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Test 2 New slip empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"tests[\"TEST 3: Confirm new slip is empty\"] = jsonData[\"current_boat\"] === null;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/slip/{{publicSlip}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Test 3: Change Boat at sea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"tests[\"TEST 4: Confirm change at_sea\"] = jsonData[\"at_sea\"] === false;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat/{{publicBoat}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"at_sea\":false}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Test4:ArrivalDateAnd Current Boat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"var date = \"1/1/2015\"",
+							"postman.setGlobalVariable(\"publicDate\", date);",
+							"tests[\"TEST 5: Confirm current boat\"] = jsonData[\"current_boat\"] == globals.publicBoat;",
+							"tests[\"TEST 6: Confirm arrival date\"] = jsonData[\"arrival_date\"] == globals.publicDate;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/slip/{{publicSlip}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"current_boat\":\"{{publicBoat}}\",\"arrival_date\":\"1/1/2015\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "undock",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"tests[\"TEST 7: Confirm undock\"] = jsonData[\"at_sea\"] === true;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat/{{publicBoat}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"at_sea\":true}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "slip undock",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"tests[\"TEST 8: Confirm current boat empty\"] = jsonData[\"current_boat\"] == null;",
+							"tests[\"TEST 9: Confirm arrival date empty\"] = jsonData[\"arrival_date\"] == null;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/slip/{{publicSlip}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"current_boat\":null,\"arrival_date\":null}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Boat",
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat/{{publicBoat}}",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Slip",
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat/{{publicSlip}}",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Boat deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"TEST 10: Boat deleted\"] = responseCode.code === 500;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat/{{publicBoat}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Slip Deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Slip deleted\"] = responseCode.code === 500;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://root-grammar-172008.appspot.com/boat/{{publicSlip}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
