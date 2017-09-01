@@ -1,0 +1,131 @@
+{
+	"variables": [],
+	"info": {
+		"name": "final_project",
+		"_postman_id": "5650a45a-23ad-e004-d1f9-bf7cd818f0bb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Portfolio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"var last = jsonData[0];",
+							"postman.setGlobalVariable(\"publicPortfolio\", jsonData[\"id\"]);",
+							"tests[\"TEST 0: Confirm Portfolio id recieved\"] = globals.publicPortfolio == jsonData[\"id\"];"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://brycefinal.appspot.com/portfolio",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"BestStocks\",\n\t\"number\":2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Portfolio Check count and value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"tests[\"TEST 1: Confirm new portfolio value is $0\"] = jsonData[\"value\"] === 0;",
+							"tests[\"TEST 2: Confirm new portfolio count is 0\"] = jsonData[\"count\"] === 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://brycefinal.appspot.com/portfolio/{{publicPortfolio}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create stock",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"var last = jsonData[0];",
+							"postman.setGlobalVariable(\"publicStock\", jsonData[\"id\"]);",
+							"tests[\"TEST 4: Confirm Stock id recieved\"] = globals.publicStock == jsonData[\"id\"];"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://brycefinal.appspot.com/stock",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"symbol\":\"NASDAQ:AAPL\",\n\t\"shares\":3,\n\t\"portfolioNumber\":2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Stock check price and date",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = [];",
+							"jsonData = JSON.parse(responseBody);",
+							"tests[\"TEST 1: Confirm new portfolio value is $0\"] = jsonData[\"date\"] === \"19/08/2017\";",
+							"tests[\"TEST 2: Confirm new portfolio count is 0\"] = jsonData[\"stockPrice\"] === 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://brycefinal.appspot.com/stock/{{publicStock}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
