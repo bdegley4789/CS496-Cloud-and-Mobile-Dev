@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BryceApp</string>
+    <string name="hello_world">Welcome to my app! This is the home page</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_second">Welcome to my Second Activity</string>
+    <string name="title_activity_third">Welcome to my Third Activity</string>
+    <string name="title_activity_fourth">Welcome to my Fourth Activity</string>
+    <string name="title_activity_fifth">Welcome to my Fifth Activity</string>
+</resources>
