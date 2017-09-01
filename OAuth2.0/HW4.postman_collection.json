@@ -1,0 +1,61 @@
+{
+	"variables": [],
+	"info": {
+		"name": "HW4",
+		"_postman_id": "0de20023-e259-1c59-303e-1d7be3a337fb",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "post",
+			"request": {
+				"url": "https://www.googleapis.com/oauth2/v4/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code ",
+							"value": "4/jl7x2EMRulHNg_ugXD0cS3njdIbSE7O1I--FM6fM7Lc",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "014857407876-5a5hibme21a2knqpk9cek63eestd10cm.apps.googleusercontent.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "BXGR2IjtDsqUOXaej_kj9cc",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://root-grammar-172008.appspot.com/",
+							"description": ""
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
